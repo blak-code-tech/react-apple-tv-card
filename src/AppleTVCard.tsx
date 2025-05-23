@@ -19,8 +19,12 @@ export interface AppleTVCardProps {
     withReflection?: boolean;
     /** Whether to use rounded corners (default: true) */
     rounded?: boolean;
+    /** Whether to auto size the card (default: false) */
+    autoSize?: boolean;
     /** Whether to always show the title (default: false) */
     alwaysShowTitle?: boolean;
+    /** Whether to always show the title (default: false) */
+    shouldShowTitle?: boolean;
     /** Content to display with parallax effect */
     children?: ReactNode;
     /** Optional CSS class name for the card container */
@@ -52,10 +56,12 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
     backgroundImage,
     width = 300,
     height,
+    autoSize = false,
     withShadow = true,
     withReflection = true,
     rounded = true,
     alwaysShowTitle = false,
+    shouldShowTitle = true,
     children,
     className = '',
     style = {},
@@ -232,7 +238,7 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
     // Create styles for the container
     const containerStyle: React.CSSProperties = {
         position: 'relative',
-        width: `${width}px`,
+        width: autoSize ? '100%' : `${width}px`,
         paddingBottom: title ? '3.5rem' : 0,
         perspective: `${perspective}px`,
         ...style
@@ -403,7 +409,7 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
             </motion.div>
 
             {/* Title */}
-            {title && (
+            {(shouldShowTitle && title) && (
                 <motion.div
                     style={titleStyle}
                     data-testid="apple-tv-card-title"

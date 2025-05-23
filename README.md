@@ -59,6 +59,7 @@ function MyComponent() {
 | `title` | `string` | `undefined` | Title displayed below the card |
 | `backgroundImage` | `string` | _Required_ | URL for the background image |
 | `width` | `number` | `300` | Width of the card in pixels |
+| `autoSize` | `boolean` | `100%` | Width of the card relative to its container. Best for grid and flex. |
 | `height` | `number` | `170` | Height of the card in pixels |
 | `rotateIntensity` | `number` | `15` | Maximum rotation angle in degrees |
 | `moveIntensity` | `number` | `1.5` | Intensity of the parallax movement |
@@ -123,6 +124,7 @@ function MyComponent() {
     <AppleTVCard
       key={movie.id}
       title={movie.title}
+      autoSize={true}
       backgroundImage={movie.posterUrl}
       onClick={() => playMovie(movie.id)}
     />
