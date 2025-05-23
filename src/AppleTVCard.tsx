@@ -239,7 +239,7 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
     const containerStyle: React.CSSProperties = {
         position: 'relative',
         width: autoSize ? '100%' : `${width}px`,
-        paddingBottom: title ? '3.5rem' : 0,
+        paddingBottom: (shouldShowTitle && title) ? '3.5rem' : 0,
         perspective: `${perspective}px`,
         ...style
     };
