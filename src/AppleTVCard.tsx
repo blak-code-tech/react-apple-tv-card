@@ -33,6 +33,12 @@ export interface AppleTVCardProps {
     style?: React.CSSProperties;
     /** Optional callback when the card is clicked */
     onClick?: () => void;
+    /** Maximum rotation angle in degrees (default: 10) */
+    maxRotation?: number;
+    /** Maximum translation distance in pixels (default: 10) */
+    maxTranslation?: number;
+    /** Intensity of the 3D effect (0-1, default: 1) */
+    intensity?: number;
 }
 
 /**
@@ -66,6 +72,9 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
     className = '',
     style = {},
     onClick,
+    maxRotation = 10,
+    maxTranslation = 10,
+    intensity = 1,
 }) => {
     // Refs
     const cardRef = useRef<HTMLDivElement>(null);
@@ -129,6 +138,16 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
         };
     }, []);
 
+    // Utility function to clamp values within a range
+    const clamp = (value: number, min: number, max: number): number => {
+        return Math.min(Math.max(value, min), max);
+    };
+
+    // Utility function for smooth easing
+    const easeOutCubic = (t: number): number => {
+        return 1 - Math.pow(1 - t, 3);
+    };
+
     // Handle mouse/touch movement
     const handleMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>): void => {
         if (!cardRef.current || prefersReducedMotion.current) return;
@@ -161,18 +180,30 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
             posY = mouseEvent.nativeEvent.offsetY;
         }
 
-        // Calculate transforms
-        const angleY = (width / 2 - posX) / width * 10;
-        const angleX = (height / 2 - posY) * -1 / height * 10;
-        const transX = ((width / 2 - posX)) * -1 / width * 10;
-        const transY = ((height / 2 - posY)) * -1 / height * 10;
+        // Clamp positions to ensure they're within bounds
+        posX = clamp(posX, 0, width);
+        posY = clamp(posY, 0, height);
+
+        // Calculate normalized positions (-1 to 1)
+        const normalizedX = (posX / width) * 2 - 1;
+        const normalizedY = (posY / height) * 2 - 1;
+
+        // Apply easing for smoother transitions at edges
+        const easedX = normalizedX * easeOutCubic(Math.abs(normalizedX));
+        const easedY = normalizedY * easeOutCubic(Math.abs(normalizedY));
+
+        // Calculate transforms with intensity multiplier and bounds
+        const angleY = clamp(easedX * maxRotation * intensity, -maxRotation, maxRotation);
+        const angleX = clamp(-easedY * maxRotation * intensity, -maxRotation, maxRotation);
+        const transX = clamp(-easedX * maxTranslation * intensity, -maxTranslation, maxTranslation);
+        const transY = clamp(-easedY * maxTranslation * intensity, -maxTranslation, maxTranslation);
 
         // Update motion values
         rotateY.set(angleY);
         rotateX.set(angleX);
         translateX.set(transX);
         translateY.set(transY);
-        translateZ.set(64); // 4rem in pixels
+        translateZ.set(64 * intensity); // 4rem in pixels scaled by intensity
 
         // Update reflection position if enabled
         if (withReflection) {
@@ -181,11 +212,12 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
             reflectionSize.set(perspective * 1.5);
         }
 
-        // Update shadow opacity if enabled
+        // Update shadow opacity if enabled with better calculation
         if (withShadow) {
-            const shadowValue = posY < height / 3
-                ? 1 / (height / 3) * ((height / 3) - posY)
-                : 0;
+            const distanceFromCenter = Math.sqrt(
+                Math.pow(normalizedX, 2) + Math.pow(normalizedY, 2)
+            );
+            const shadowValue = clamp(1 - distanceFromCenter, 0, 0.6) * intensity;
             shadowOpacity.set(shadowValue);
         }
 
@@ -345,7 +377,7 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
                             zIndex: 3,
                             boxShadow: useTransform(
                                 shadowOpacity,
-                                (value: number) => `inset 0 ${value * -1}em 0.4em -0.5em rgba(0, 0, 0, ${Math.min(value, 0.35)})`
+                                (value: number) => `inset 0 ${value * -2}em 1em -0.5em rgba(0, 0, 0, ${Math.min(value, 0.35)})`
                             )
                         }}
                         data-testid="apple-tv-card-shadow"

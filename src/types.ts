@@ -18,8 +18,12 @@ export interface AppleTVCardProps {
     withReflection?: boolean;
     /** Whether to use rounded corners (default: true) */
     rounded?: boolean;
+    /** Whether to auto size the card (default: false) */
+    autoSize?: boolean;
     /** Whether to always show the title (default: false) */
     alwaysShowTitle?: boolean;
+    /** Whether to show the title (default: true) */
+    shouldShowTitle?: boolean;
     /** Content to display with parallax effect */
     children?: ReactNode;
     /** Optional CSS class name for the card container */
@@ -28,6 +32,12 @@ export interface AppleTVCardProps {
     style?: React.CSSProperties;
     /** Optional callback when the card is clicked */
     onClick?: () => void;
+    /** Maximum rotation angle in degrees (default: 10) */
+    maxRotation?: number;
+    /** Maximum translation distance in pixels (default: 10) */
+    maxTranslation?: number;
+    /** Intensity of the 3D effect (0-1, default: 1) */
+    intensity?: number;
 }
 
 /**
