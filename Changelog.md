@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.0] - 2025-06-11
+## [1.0.4] - 2025-06-11
 
 ### 🚀 Added
 - **Enhanced Control Props**: Added `maxRotation`, `maxTranslation`, and `intensity` props for fine-tuned animation control
@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.2.0] - 2025-05-15
+## [1.0.3] - 2025-05-15
 
 ### 🚀 Added
 - TypeScript support with full type definitions
@@ -61,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.1.0] - 2025-04-20
+## [1.0.1] - 2025-04-20
 
 ### 🚀 Added
 - Reflection effect with `withReflection` prop
@@ -104,33 +104,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 🔧 **Changed** - Changes that may affect existing code
 - 📚 **Documentation** - Documentation updates
 - 🗑️ **Removed** - Removed features or dependencies
-
-## Migration Guides
-
-### Migrating from v1.x to v2.0
-
-**Breaking Changes:**
-1. **Framer Motion Requirement**: Update to Framer Motion 6.0.0+
-   ```bash
-   npm install framer-motion@^6.0.0
-   ```
-
-2. **Intensity Calculation**: If you were relying on specific animation intensities, you may need to adjust:
-   ```jsx
-   // Before (v1.x)
-   <AppleTVCard rotateIntensity={15} moveIntensity={1.5} />
-   
-   // After (v2.0)
-   <AppleTVCard maxRotation={15} maxTranslation={10} intensity={1} />
-   ```
-
-**Recommended Updates:**
-- Add the new control props for better customization
-- Consider using `autoSize={true}` for responsive layouts
-- Test animations with different `intensity` values to find your preferred feel
-
-### Migrating from v0.x to v1.0
-
-- Replace any custom CSS for rounded corners with the `rounded` prop
-- Update event handlers to use the new `onClick` prop instead of wrapping in additional elements
-- Review accessibility implementations as keyboard navigation is now built-in
