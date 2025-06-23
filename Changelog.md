@@ -5,13 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.5] - 2025-06-23
 
 ### 🚀 Added
 - **Badge Support**: Added `showBadge` and `badgeCount` props to display a badge in the top-right corner of the card. See README for usage.
 
 ### 📝 Updated
 - Documentation and examples updated to demonstrate badge usage.
+
+## [Unreleased]
 
 ## [1.0.4] - 2025-06-11
 

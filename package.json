@@ -1,6 +1,6 @@
 {
   "name": "react-apple-tv-card",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Apple TV style card component for React and Next.js",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
