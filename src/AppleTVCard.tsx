@@ -462,7 +462,7 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
 
                 {/* Badge */}
                 {showBadge && (
-                    <div className="absolute top-0 right-0 bg-red-500 text-white text-sm rounded-full size-6 flex items-center justify-center" style={{ zIndex: 10 }}>
+                    <div className="absolute top-0 right-0 bg-red-500 text-white text-sm rounded-full size-6 flex items-center justify-center" style={{ zIndex: 9999999999 }}>
                         {badgeCount}
                     </div>
                 )}
