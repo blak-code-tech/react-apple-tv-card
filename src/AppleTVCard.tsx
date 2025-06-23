@@ -349,46 +349,20 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
             className={className}
             data-testid="apple-tv-card-container"
         >
-            <div
+            <motion.div
                 ref={cardRef}
-                className={`apple-tv-card-outer relative ${className}`}
-                style={{
-                    width: autoSize ? '100%' : width,
-                    height: autoSize ? undefined : height || width * 9 / 16,
-                    perspective,
-                    ...style,
-                }}
-                tabIndex={0}
+                style={cardStyle}
+                onMouseMove={handleMove}
+                onMouseEnter={handleStart}
+                onMouseLeave={handleEnd}
+                onTouchStart={handleStart}
+                onTouchMove={handleMove}
+                onTouchEnd={handleEnd}
+                onTouchCancel={handleEnd}
                 onClick={onClick}
-                data-testid="apple-tv-card-root"
+                data-testid="apple-tv-card"
             >
-                {/* Badge - outside and above the card */}
-                {showBadge && (
-                    <div
-                        className="absolute"
-                        style={{
-                            top: '-18px',
-                            right: '-18px',
-                            background: '#ef4444',
-                            color: 'white',
-                            fontSize: '0.875rem',
-                            borderRadius: '9999px',
-                            width: '1.5rem',
-                            height: '1.5rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                            zIndex: 50,
-                            border: '2px solid white',
-                            pointerEvents: 'none',
-                        }}
-                    >
-                        {badgeCount}
-                    </div>
-                )}
-
-                {/* Card Content */}
+                {/* Content/Background */}
                 <motion.div
                     ref={contentRef}
                     tabIndex={0}
@@ -485,7 +459,14 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
                         {children}
                     </motion.div>
                 )}
-            </div>
+
+                {/* Badge */}
+                {showBadge && (
+                    <div className="absolute top-0 right-0 bg-red-500 text-white text-sm rounded-full size-6 flex items-center justify-center" style={{ zIndex: 10 }}>
+                        {badgeCount}
+                    </div>
+                )}
+            </motion.div>
 
             {/* Title */}
             {(shouldShowTitle && title) && (
