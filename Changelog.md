@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🚀 Added
+- **Badge Support**: Added `showBadge` and `badgeCount` props to display a badge in the top-right corner of the card. See README for usage.
+
+### 📝 Updated
+- Documentation and examples updated to demonstrate badge usage.
+
 ## [1.0.4] - 2025-06-11
 
 ### 🚀 Added

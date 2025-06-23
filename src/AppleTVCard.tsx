@@ -39,6 +39,10 @@ export interface AppleTVCardProps {
     maxTranslation?: number;
     /** Intensity of the 3D effect (0-1, default: 1) */
     intensity?: number;
+    /** Whether to show a badge in the top-right corner */
+    showBadge?: boolean;
+    /** The count to display inside the badge */
+    badgeCount?: number;
 }
 
 /**
@@ -75,6 +79,8 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
     maxRotation = 10,
     maxTranslation = 10,
     intensity = 1,
+    showBadge = false,
+    badgeCount = 0,
 }) => {
     // Refs
     const cardRef = useRef<HTMLDivElement>(null);
@@ -319,6 +325,21 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
         pointerEvents: 'none'
     };
 
+    // CSS for the badge
+    const badgeStyle: React.CSSProperties = {
+        position: 'absolute',
+        top: '0.5rem',
+        right: '0.5rem',
+        backgroundColor: 'red',
+        color: 'white',
+        borderRadius: '1rem',
+        padding: '0.25rem 0.5rem',
+        fontSize: '0.875rem',
+        fontWeight: 'bold',
+        pointerEvents: 'none',
+        zIndex: 5
+    };
+
     // Check if the component is active (hovering or focused)
     const isActive = isHovering || isFocused;
 
@@ -437,6 +458,13 @@ const AppleTVCard: React.FC<AppleTVCardProps> = ({
                     >
                         {children}
                     </motion.div>
+                )}
+
+                {/* Badge */}
+                {showBadge && (
+                    <div className="absolute top-0 right-0 bg-red-500 text-white text-sm rounded-full size-6 flex items-center justify-center" style={{ zIndex: 10 }}>
+                        {badgeCount}
+                    </div>
                 )}
             </motion.div>
 

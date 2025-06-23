@@ -74,6 +74,8 @@ function MyComponent() {
 | `maxRotation` | `number` | `10` | Maximum rotation angle in degrees |
 | `maxTranslation` | `number` | `10` | Maximum translation distance in pixels |
 | `intensity` | `number` | `1` | Overall intensity of the 3D effect (0-1) |
+| `showBadge` | `boolean` | `false` | Whether to show a badge in the top-right corner |
+| `badgeCount` | `number` | `0` | The count to display inside the badge |
 | `children` | `ReactNode` | `undefined` | Content to display with parallax effect |
 | `className` | `string` | `''` | Optional CSS class name for the card container |
 | `style` | `React.CSSProperties` | `{}` | Optional style object for the card container |
@@ -182,6 +184,20 @@ function MyComponent() {
   <div role="button" aria-label="View details">
     <span>Learn More</span>
   </div>
+</AppleTVCard>
+```
+
+### Card with Badge
+
+```jsx
+<AppleTVCard
+  title="Notifications"
+  backgroundImage="/notification-bg.jpg"
+  width={320}
+  showBadge={true}
+  badgeCount={5}
+>
+  <div style={{ color: 'white', fontWeight: 'bold' }}>Inbox</div>
 </AppleTVCard>
 ```
 

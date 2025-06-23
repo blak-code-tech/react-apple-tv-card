@@ -38,6 +38,10 @@ export interface AppleTVCardProps {
     maxTranslation?: number;
     /** Intensity of the 3D effect (0-1, default: 1) */
     intensity?: number;
+    /** Whether to show a badge in the top-right corner */
+    showBadge?: boolean;
+    /** The count to display inside the badge */
+    badgeCount?: number;
 }
 
 /**

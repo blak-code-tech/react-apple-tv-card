@@ -10,6 +10,8 @@ interface CardData {
     noShadow?: boolean;
     noReflection?: boolean;
     alwaysShowTitle?: boolean;
+    showBadge?: boolean;
+    badgeCount?: number;
 }
 
 const NextJsExample: React.FC = () => {
@@ -29,7 +31,10 @@ const NextJsExample: React.FC = () => {
                         opacity: 0.8
                     }}
                 />
-            )
+            ),
+            // Add badge example
+            showBadge: true,
+            badgeCount: 3
         },
         {
             id: 2,
@@ -99,6 +104,8 @@ const NextJsExample: React.FC = () => {
                         withReflection={!card.noReflection}
                         alwaysShowTitle={card.alwaysShowTitle}
                         onClick={() => handleCardClick(card.id)}
+                        showBadge={card.showBadge}
+                        badgeCount={card.badgeCount}
                     >
                         {card.content}
                     </AppleTVCard>
